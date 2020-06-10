@@ -2,7 +2,7 @@ package ru.kerporation.breddit.model
 
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.UpdateTimestamp
-import java.util.*
+import java.time.Instant
 import javax.persistence.*
 import javax.validation.constraints.Email
 import javax.validation.constraints.NotBlank
@@ -18,11 +18,11 @@ class User {
 
 	@CreationTimestamp
 	@Column(name = "created", updatable = false, nullable = false)
-	val created: Date = Date()
+	val created: Instant = Instant.now()
 
 	@UpdateTimestamp
 	@Column(name = "modified", nullable = false)
-	var modified: Date = Date()
+	var modified: Instant = Instant.now()
 
 	@NotBlank(message = "Username is required")
 	@Column(name = "username")

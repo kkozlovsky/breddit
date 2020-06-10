@@ -1,6 +1,6 @@
 package ru.kerporation.breddit.model
 
-import java.util.*
+import java.time.Instant
 import javax.persistence.*
 
 @Entity
@@ -19,6 +19,6 @@ class VerificationToken {
 	lateinit var user: User
 
 	@Column(name = "expiry_date")
-	var expiryDate: Date? = null
+	var expiryDate: Instant? = null
 
 }

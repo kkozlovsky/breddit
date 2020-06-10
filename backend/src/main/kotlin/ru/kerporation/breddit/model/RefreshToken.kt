@@ -1,6 +1,6 @@
 package ru.kerporation.breddit.model
 
-import java.util.*
+import java.time.Instant
 import javax.persistence.*
 
 @Entity
@@ -16,6 +16,6 @@ class RefreshToken {
 	lateinit var token: String
 
 	@Column(name = "created_date", updatable = false, nullable = false)
-	val createdDate: Date = Date()
+	val createdDate: Instant = Instant.now()
 
 }
