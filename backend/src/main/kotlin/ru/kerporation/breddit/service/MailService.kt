@@ -6,6 +6,7 @@ import org.springframework.mail.MailException
 import org.springframework.mail.javamail.JavaMailSender
 import org.springframework.mail.javamail.MimeMessageHelper
 import org.springframework.mail.javamail.MimeMessagePreparator
+import org.springframework.scheduling.annotation.Async
 import org.springframework.stereotype.Service
 import ru.kerporation.breddit.dto.NotificationEmail
 import javax.mail.internet.MimeMessage
@@ -19,6 +20,7 @@ class MailService(
 	@Value("\${breddit.mail.from}") private val bredditInfoMail: String
 ) {
 
+	@Async
 	fun sendMail(notificationEmail: NotificationEmail) {
 		val messagePreparator: MimeMessagePreparator = object : MimeMessagePreparator {
 			override fun prepare(mimeMessage: MimeMessage) {

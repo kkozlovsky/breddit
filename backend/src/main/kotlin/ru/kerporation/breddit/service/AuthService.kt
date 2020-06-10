@@ -24,8 +24,8 @@ class AuthService(
 				username = registerRequest.username
 				email = registerRequest.email
 				password = passwordEncoder.encode(registerRequest.password)
-			}.apply {
-				userRepository.save(this)
+			}.let {
+				userRepository.save(it)
 			}
 		val verificationToken = generateVerificationToken(user)
 
@@ -37,7 +37,6 @@ class AuthService(
 		))
 	}
 
-
 	private fun generateVerificationToken(user: User): String {
 		val token: String = UUID.randomUUID().toString()
 		VerificationToken()
@@ -48,5 +47,19 @@ class AuthService(
 				verificationTokenRepository.save(it)
 			}
 		return token
+	}
+
+	fun verifyAccount(token: String) {
+		val verificationToken: VerificationToken? = verificationTokenRepository.findByToken(token)
+		checkNotNull(verificationToken) { "Invalid Token" }
+		fetchUserAndEnable(verificationToken)
+	}
+
+	private fun fetchUserAndEnable(verificationToken: VerificationToken) {
+		val username: String = verificationToken.user.username
+		val user: User? = userRepository.findByUsername(username)
+		checkNotNull(user) { "Пользователь $username не найден" }
+		user.enabled = true
+		userRepository.save(user)
 	}
 }
