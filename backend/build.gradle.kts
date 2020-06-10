@@ -27,6 +27,15 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation("javax.validation:validation-api:2.0.1.Final")
 	implementation("io.github.microutils:kotlin-logging:1.7.9")
+	implementation("com.github.marlonlom:timeago:4.0.1")
+
+	implementation("io.springfox:springfox-swagger2:2.9.2")
+	implementation("io.springfox:springfox-swagger-ui:2.9.2")
+
+	implementation("io.jsonwebtoken:jjwt-api:0.11.1")
+	runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.1")
+	runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.1")
+
 	runtimeOnly("org.postgresql:postgresql")
 	testImplementation("org.springframework.boot:spring-boot-starter-test") {
 		exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
