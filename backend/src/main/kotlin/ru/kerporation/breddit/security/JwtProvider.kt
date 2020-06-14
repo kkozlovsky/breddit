@@ -2,11 +2,11 @@ package ru.kerporation.breddit.security
 
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.Jwts.parserBuilder
+import mu.KotlinLogging
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.userdetails.User
 import org.springframework.stereotype.Service
-import ru.kerporation.breddit.exception.BredditRuntimeException
 import java.security.KeyStore
 import java.security.KeyStoreException
 import java.security.PrivateKey
@@ -15,6 +15,7 @@ import java.sql.Date
 import java.time.Instant
 import javax.annotation.PostConstruct
 
+private val logger = KotlinLogging.logger {}
 
 @Service
 class JwtProvider(
@@ -30,7 +31,8 @@ class JwtProvider(
 			val resourceAsStream = javaClass.getResourceAsStream("/breddit.jks")
 			keyStore.load(resourceAsStream, "secret".toCharArray())
 		} catch (e: Exception) {
-			throw BredditRuntimeException("Ошибка ининициализации хранилища:", e)
+			logger.error { e }
+			throw RuntimeException("Ошибка ининициализации хранилища")
 		}
 	}
 
@@ -57,7 +59,8 @@ class JwtProvider(
 		return try {
 			keyStore.getKey("breddit", "secret".toCharArray()) as PrivateKey
 		} catch (e: Exception) {
-			throw BredditRuntimeException("Ошибка при получении приватного ключа", e)
+			logger.error { e }
+			throw RuntimeException("Ошибка при получении приватного ключа")
 		}
 	}
 
@@ -70,7 +73,8 @@ class JwtProvider(
 		return try {
 			keyStore.getCertificate("breddit").publicKey
 		} catch (e: KeyStoreException) {
-			throw BredditRuntimeException("Ошибка при получении публичного ключа", e)
+			logger.error { e }
+			throw RuntimeException("Ошибка при получении публичного ключа")
 		}
 	}
 

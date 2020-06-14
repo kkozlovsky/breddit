@@ -9,7 +9,6 @@ import org.springframework.mail.javamail.MimeMessagePreparator
 import org.springframework.scheduling.annotation.Async
 import org.springframework.stereotype.Service
 import ru.kerporation.breddit.dto.NotificationEmail
-import ru.kerporation.breddit.exception.BredditRuntimeException
 import javax.mail.internet.MimeMessage
 
 private val logger = KotlinLogging.logger {}
@@ -23,22 +22,20 @@ class MailService(
 
 	@Async
 	fun sendMail(notificationEmail: NotificationEmail) {
-		val messagePreparator: MimeMessagePreparator = object : MimeMessagePreparator {
-			override fun prepare(mimeMessage: MimeMessage) {
-				MimeMessageHelper(mimeMessage).apply {
-					setFrom(bredditInfoMail)
-					setTo(notificationEmail.recipient)
-					setSubject(notificationEmail.subject)
-					setText(mailContentBuilder.build(notificationEmail.body))
-				}
+		val messagePreparator = MimeMessagePreparator { mimeMessage ->
+			MimeMessageHelper(mimeMessage).apply {
+				setFrom(bredditInfoMail)
+				setTo(notificationEmail.recipient)
+				setSubject(notificationEmail.subject)
+				setText(mailContentBuilder.build(notificationEmail.body))
 			}
 		}
 		try {
 			mailSender.send(messagePreparator)
 			logger.info("Письмо активации отправлено на ${notificationEmail.recipient}")
 		} catch (e: MailException) {
-			logger.error("Ошибка при отправке сообщения", e )
-			throw BredditRuntimeException("Ошибка при отправке сообщения на: ${notificationEmail.recipient}", e)
+			logger.error("Ошибка при отправке сообщения", e)
+			throw RuntimeException("Ошибка при отправке сообщения на: ${notificationEmail.recipient}")
 		}
 	}
 }
