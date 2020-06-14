@@ -23,7 +23,7 @@ class JwtAuthenticationFilter(
 								  filterChain: FilterChain) {
 
 		val jwt = getJwtFromRequest(request)
-		if (StringUtils.hasText(jwt) && jwtProvider.validateToken(jwt)) {
+		if (jwt != null && StringUtils.hasText(jwt) && jwtProvider.validateToken(jwt)) {
 			val username = jwtProvider.getUsernameFromJwt(jwt)
 			val userDetails = userDetailsService.loadUserByUsername(username)
 			val authentication = UsernamePasswordAuthenticationToken(userDetails, null, userDetails.authorities)
@@ -33,9 +33,9 @@ class JwtAuthenticationFilter(
 		filterChain.doFilter(request, response)
 	}
 
-	private fun getJwtFromRequest(request: HttpServletRequest): String {
-		val bearerToken = request.getHeader("Authorization")
-		return if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
+	private fun getJwtFromRequest(request: HttpServletRequest): String? {
+		val bearerToken: String? = request.getHeader("Authorization")
+		return if (bearerToken != null && StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
 			bearerToken.substring(7)
 		} else bearerToken
 	}
