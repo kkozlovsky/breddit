@@ -3,6 +3,7 @@ package ru.kerporation.breddit.service
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import ru.kerporation.breddit.dto.VoteDto
+import ru.kerporation.breddit.exception.BredditRuntimeException
 import ru.kerporation.breddit.model.Post
 import ru.kerporation.breddit.model.Vote
 import ru.kerporation.breddit.model.VoteType
@@ -26,7 +27,7 @@ class VoteService(
 		val voteByPostAndUser: Vote? = voteRepository.findTopByPostAndUserOrderByIdDesc(post, authService.getCurrentUser())
 		voteByPostAndUser?.let { it ->
 			if (it.voteType == voteDto.voteType) {
-				throw RuntimeException("You have already ${voteDto.voteType}'d for this post")
+				throw BredditRuntimeException("Вы уже проголосовали " +  if (voteDto.voteType == VoteType.UPVOTE) "за" else "против")
 			}
 		}
 

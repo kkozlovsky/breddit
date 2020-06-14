@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.userdetails.User
 import org.springframework.stereotype.Service
+import ru.kerporation.breddit.exception.BredditRuntimeException
 import java.security.KeyStore
 import java.security.KeyStoreException
 import java.security.PrivateKey
@@ -29,7 +30,7 @@ class JwtProvider(
 			val resourceAsStream = javaClass.getResourceAsStream("/breddit.jks")
 			keyStore.load(resourceAsStream, "secret".toCharArray())
 		} catch (e: Exception) {
-			throw RuntimeException("Ошибка ининициализации хранилища:", e)
+			throw BredditRuntimeException("Ошибка ининициализации хранилища:", e)
 		}
 	}
 
@@ -56,7 +57,7 @@ class JwtProvider(
 		return try {
 			keyStore.getKey("breddit", "secret".toCharArray()) as PrivateKey
 		} catch (e: Exception) {
-			throw RuntimeException("Ошибка при получении приватного ключа", e)
+			throw BredditRuntimeException("Ошибка при получении приватного ключа", e)
 		}
 	}
 
@@ -69,7 +70,7 @@ class JwtProvider(
 		return try {
 			keyStore.getCertificate("breddit").publicKey
 		} catch (e: KeyStoreException) {
-			throw RuntimeException("Ошибка при получении публичного ключа", e)
+			throw BredditRuntimeException("Ошибка при получении публичного ключа", e)
 		}
 	}
 

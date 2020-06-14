@@ -2,6 +2,7 @@ package ru.kerporation.breddit.service
 
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import ru.kerporation.breddit.exception.BredditRuntimeException
 import ru.kerporation.breddit.model.RefreshToken
 import ru.kerporation.breddit.repository.RefreshTokenRepository
 import java.util.*
@@ -18,7 +19,7 @@ class RefreshTokenService(
 	}
 
 	fun validateRefreshToken(token: String) {
-		checkNotNull(refreshTokenRepository.findByToken(token)) { "Неверный RefreshToken" }
+		refreshTokenRepository.findByToken(token) ?: throw BredditRuntimeException("Неверный RefreshToken")
 	}
 
 	fun deleteRefreshToken(token: String) {

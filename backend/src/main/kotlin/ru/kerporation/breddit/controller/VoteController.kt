@@ -1,6 +1,7 @@
 package ru.kerporation.breddit.controller
 
 import org.springframework.http.HttpStatus
+import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -15,7 +16,10 @@ class VoteController(
 	private val voteService: VoteService
 ) {
 
-	@PostMapping
+	@PostMapping(
+		produces = [MediaType.APPLICATION_JSON_VALUE],
+		consumes = [MediaType.APPLICATION_JSON_VALUE]
+	)
 	fun vote(@RequestBody voteDto: VoteDto): ResponseEntity<Void> {
 		voteService.vote(voteDto)
 		return ResponseEntity(HttpStatus.OK)
