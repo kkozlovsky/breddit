@@ -6,6 +6,7 @@ import {throwError} from 'rxjs';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {CommentPayload} from 'src/app/comment/comment.payload';
 import {CommentService} from 'src/app/comment/comment.service';
+import {AuthService} from "../../auth/shared/auth.service";
 
 @Component({
   selector: 'app-view-post',
@@ -16,13 +17,15 @@ export class ViewPostComponent implements OnInit {
 
   postId: number;
   post: PostModel;
+  username: string;
   commentForm: FormGroup;
   commentPayload: CommentPayload;
   comments: CommentPayload[];
 
   constructor(private postService: PostService,
               private activateRoute: ActivatedRoute,
-              private commentService: CommentService
+              private commentService: CommentService,
+              private authService: AuthService
   ) {
   }
 
@@ -32,9 +35,11 @@ export class ViewPostComponent implements OnInit {
     this.commentForm = new FormGroup({
       text: new FormControl('', Validators.required)
     });
+
     this.commentPayload = {
       text: '',
-      postId: this.postId
+      postId: this.postId,
+      username: this.authService.getUsername()
     };
 
     this.getPostById();
@@ -43,7 +48,8 @@ export class ViewPostComponent implements OnInit {
 
   postComment() {
     this.commentPayload.text = this.commentForm.get('text').value;
-    this.commentService.postComment(this.commentPayload).subscribe(data => {
+
+    this.commentService.postComment(this.commentPayload).subscribe(() => {
       this.commentForm.get('text').setValue('');
       this.getCommentsForPost();
     }, error => {

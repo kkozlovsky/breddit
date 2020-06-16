@@ -7,11 +7,16 @@ import ru.kerporation.breddit.dto.PostResponse
 import ru.kerporation.breddit.model.Post
 import ru.kerporation.breddit.model.Subreddit
 import ru.kerporation.breddit.model.User
+import ru.kerporation.breddit.model.VoteType
 import ru.kerporation.breddit.repository.CommentRepository
+import ru.kerporation.breddit.repository.VoteRepository
+import ru.kerporation.breddit.service.AuthService
 
 @Component
 class PostConverter(
-	private val commentRepository: CommentRepository
+	private val commentRepository: CommentRepository,
+	private val authService: AuthService,
+	private val voteRepository: VoteRepository
 ) {
 
 	fun toPostResponse(post: Post): PostResponse {
@@ -21,10 +26,12 @@ class PostConverter(
 			post.url,
 			post.description,
 			post.user.username,
-			post.subreddit?.name,
+			post.subreddit?.name ?: "",
 			post.voteCount,
 			commentRepository.findByPost(post).size,
-			TimeAgo.using(post.created.toEpochMilli())
+			TimeAgo.using(post.created.toEpochMilli()),
+			isPostUpVoted(post),
+			isPostDownVoted(post)
 		)
 	}
 
@@ -36,6 +43,24 @@ class PostConverter(
 			this.url = postRequest.url
 			this.postName = postRequest.postName
 		}
+	}
+
+	fun isPostUpVoted(post: Post): Boolean {
+		return checkVoteType(post, VoteType.UPVOTE)
+	}
+
+	fun isPostDownVoted(post: Post): Boolean {
+		return checkVoteType(post, VoteType.DOWNVOTE)
+	}
+
+	private fun checkVoteType(post: Post, voteType: VoteType): Boolean {
+		if (authService.isLoggedIn()) {
+			val voteForPostByUser = voteRepository.findTopByPostAndUserOrderByIdDesc(post, authService.getCurrentUser())
+			if (voteForPostByUser != null && voteForPostByUser.voteType == voteType) {
+				return true
+			}
+		}
+		return false
 	}
 
 }

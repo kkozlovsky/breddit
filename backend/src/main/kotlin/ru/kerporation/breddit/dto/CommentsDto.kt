@@ -8,5 +8,6 @@ data class CommentsDto(
 //	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
 	val createdDate: Instant = Instant.now(),
 	val text: String,
-	val username: String
+	val username: String,
+	val duration: String ? = null
 )

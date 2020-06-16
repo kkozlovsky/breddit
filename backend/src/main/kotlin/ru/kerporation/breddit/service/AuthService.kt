@@ -1,5 +1,6 @@
 package ru.kerporation.breddit.service
 
+import org.springframework.security.authentication.AnonymousAuthenticationToken
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
@@ -100,4 +101,10 @@ class AuthService(
 		user.enabled = true
 		userRepository.save(user)
 	}
+
+	fun isLoggedIn(): Boolean {
+		val authentication = SecurityContextHolder.getContext().authentication
+		return authentication !is AnonymousAuthenticationToken && authentication.isAuthenticated
+	}
+
 }

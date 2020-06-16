@@ -7,5 +7,5 @@ import ru.kerporation.breddit.model.Subreddit
 
 @Repository
 interface SubredditRepository : JpaRepository<Subreddit, Long> {
-	fun findByName(subredditName: String?): Subreddit?
+	fun findByName(subredditName: String): Subreddit?
 }

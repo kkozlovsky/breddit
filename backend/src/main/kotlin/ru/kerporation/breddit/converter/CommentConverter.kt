@@ -1,6 +1,7 @@
 package ru.kerporation.breddit.converter
 
 
+import com.github.marlonlom.utilities.timeago.TimeAgo
 import org.springframework.stereotype.Component
 import ru.kerporation.breddit.dto.CommentsDto
 import ru.kerporation.breddit.model.Comment
@@ -16,7 +17,8 @@ class CommentConverter {
 			checkNotNull(comment.post.id),
 			comment.created,
 			comment.text,
-			comment.user.username
+			comment.user.username,
+			TimeAgo.using(comment.created.toEpochMilli())
 		)
 	}
 

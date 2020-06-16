@@ -20,7 +20,8 @@ export class AuthService {
   }
 
   constructor(private httpClient: HttpClient,
-              private localStorage: LocalStorageService) {
+              private localStorage: LocalStorageService
+  ) {
   }
 
   signup(signupRequestPayload: SignupRequestPayload): Observable<any> {
