@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { VoteButtonComponent } from './vote-button.component';
+import {VoteButtonComponent} from './vote-button.component';
 
 describe('VoteButtonComponent', () => {
   let component: VoteButtonComponent;
@@ -8,9 +8,9 @@ describe('VoteButtonComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ VoteButtonComponent ]
+      declarations: [VoteButtonComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { CreateSubredditComponent } from './create-subreddit.component';
+import {CreateSubredditComponent} from './create-subreddit.component';
 
 describe('CreateSubredditComponent', () => {
   let component: CreateSubredditComponent;
@@ -8,9 +8,9 @@ describe('CreateSubredditComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CreateSubredditComponent ]
+      declarations: [CreateSubredditComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

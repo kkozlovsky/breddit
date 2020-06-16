@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ListSubredditsComponent } from './list-subreddits.component';
+import {ListSubredditsComponent} from './list-subreddits.component';
 
 describe('ListSubredditsComponent', () => {
   let component: ListSubredditsComponent;
@@ -8,9 +8,9 @@ describe('ListSubredditsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ListSubredditsComponent ]
+      declarations: [ListSubredditsComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

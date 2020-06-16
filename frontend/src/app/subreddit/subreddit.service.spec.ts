@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { SubredditService } from './subreddit.service';
+import {SubredditService} from './subreddit.service';
 
 describe('SubredditService', () => {
   let service: SubredditService;

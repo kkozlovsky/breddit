@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { SubredditSideBarComponent } from './subreddit-side-bar.component';
+import {SubredditSideBarComponent} from './subreddit-side-bar.component';
 
 describe('SubredditSideBarComponent', () => {
   let component: SubredditSideBarComponent;
@@ -8,9 +8,9 @@ describe('SubredditSideBarComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SubredditSideBarComponent ]
+      declarations: [SubredditSideBarComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
