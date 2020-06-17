@@ -1,6 +1,6 @@
 package ru.kerporation.breddit.converter
 
-import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import ru.kerporation.breddit.dto.SubredditDto
 import ru.kerporation.breddit.model.Subreddit
@@ -23,10 +23,10 @@ class SubredditConverterTest {
 			description = "Test description"
 		}
 		val subredditDto: SubredditDto = subredditConverter.toDto(subreddit)
-		assertTrue(subredditDto.id == 1L)
-		assertTrue(subredditDto.name == "Test subreddit")
-		assertTrue(subredditDto.description == "Test description")
-		assertTrue(subredditDto.numberOfPosts == 0)
+		assertEquals(subredditDto.id, 1L)
+		assertEquals(subredditDto.name, "Test subreddit")
+		assertEquals(subredditDto.description, "Test description")
+		assertEquals(subredditDto.numberOfPosts, 0)
 
 	}
 
@@ -39,10 +39,10 @@ class SubredditConverterTest {
 			email = "test@mail.com"
 		}
 		val subreddit = subredditConverter.toEntity(subredditDto, user)
-		assertTrue(subreddit.name == "Test subreddit")
-		assertTrue(subreddit.description == "Test description")
-		assertTrue(subreddit.id == null)
-		assertTrue(subreddit.posts.size == 0)
-		assertTrue(subreddit.user.username == "testuser")
+		assertEquals(subreddit.name, "Test subreddit")
+		assertEquals(subreddit.description, "Test description")
+		assertNull(subreddit.id)
+		assertEquals(subreddit.posts.size, 0)
+		assertEquals(subreddit.user.username, "testuser")
 	}
 }

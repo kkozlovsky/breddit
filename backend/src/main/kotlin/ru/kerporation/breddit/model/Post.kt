@@ -43,6 +43,6 @@ class Post {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "subreddit_id")
-	var subreddit: Subreddit? = null
+	lateinit var subreddit: Subreddit
 
 }

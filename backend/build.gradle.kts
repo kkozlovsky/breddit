@@ -27,7 +27,7 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation("javax.validation:validation-api:2.0.1.Final")
 	implementation("io.github.microutils:kotlin-logging:1.7.9")
-	implementation("com.github.marlonlom:timeago:4.0.1")
+	implementation("com.github.marlonlom:timeago:4.0.0")
 
 	implementation("io.springfox:springfox-swagger2:2.9.2")
 	implementation("io.springfox:springfox-swagger-ui:2.9.2")
@@ -41,6 +41,8 @@ dependencies {
 		exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
 	}
 	testImplementation("org.springframework.security:spring-security-test")
+	testImplementation("org.mockito:mockito-core:3.3.3")
+	testImplementation("junit:junit:4.13")
 }
 
 allOpen {

@@ -26,7 +26,7 @@ class PostConverter(
 			post.url,
 			post.description,
 			post.user.username,
-			post.subreddit?.name ?: "",
+			post.subreddit.name,
 			post.voteCount,
 			commentRepository.findByPost(post).size,
 			TimeAgo.using(post.created.toEpochMilli()),
@@ -45,11 +45,11 @@ class PostConverter(
 		}
 	}
 
-	fun isPostUpVoted(post: Post): Boolean {
+	private fun isPostUpVoted(post: Post): Boolean {
 		return checkVoteType(post, VoteType.UPVOTE)
 	}
 
-	fun isPostDownVoted(post: Post): Boolean {
+	private fun isPostDownVoted(post: Post): Boolean {
 		return checkVoteType(post, VoteType.DOWNVOTE)
 	}
 

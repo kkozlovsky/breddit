@@ -3,7 +3,7 @@ package ru.kerporation.breddit.converter
 
 import com.github.marlonlom.utilities.timeago.TimeAgo
 import org.springframework.stereotype.Component
-import ru.kerporation.breddit.dto.CommentsDto
+import ru.kerporation.breddit.dto.CommentDto
 import ru.kerporation.breddit.model.Comment
 import ru.kerporation.breddit.model.Post
 import ru.kerporation.breddit.model.User
@@ -11,8 +11,8 @@ import ru.kerporation.breddit.model.User
 @Component
 class CommentConverter {
 
-	fun toDto(comment: Comment): CommentsDto {
-		return CommentsDto(
+	fun toDto(comment: Comment): CommentDto {
+		return CommentDto(
 			checkNotNull(comment.id),
 			checkNotNull(comment.post.id),
 			comment.created,
@@ -22,7 +22,7 @@ class CommentConverter {
 		)
 	}
 
-	fun toEntity(commentDto: CommentsDto, post: Post, user: User): Comment {
+	fun toEntity(commentDto: CommentDto, post: Post, user: User): Comment {
 		return Comment().apply {
 			this.post = post
 			this.user = user
