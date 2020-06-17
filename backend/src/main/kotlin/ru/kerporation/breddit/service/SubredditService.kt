@@ -11,12 +11,13 @@ import ru.kerporation.breddit.utils.toNullable
 @Service
 class SubredditService(
 	private val subredditRepository: SubredditRepository,
-	private val subredditConverter: SubredditConverter
+	private val subredditConverter: SubredditConverter,
+	private val authService: AuthService
 ) {
 
 	@Transactional
 	fun save(subredditDto: SubredditDto): SubredditDto {
-		val newSubreddit: Subreddit = subredditRepository.save(subredditConverter.toEntity(subredditDto))
+		val newSubreddit: Subreddit = subredditRepository.save(subredditConverter.toEntity(subredditDto, authService.getCurrentUser()))
 		return subredditConverter.toDto(newSubreddit)
 	}
 
