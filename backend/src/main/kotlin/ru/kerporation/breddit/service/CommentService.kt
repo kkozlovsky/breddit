@@ -20,7 +20,6 @@ class CommentService(
 	private val authService: AuthService,
 	private val commentConverter: CommentConverter,
 	private val commentRepository: CommentRepository,
-	private val mailContentBuilder: MailContentBuilder,
 	private val mailService: MailService
 ) {
 
@@ -29,7 +28,7 @@ class CommentService(
 		val post: Post = checkNotNull(postRepository.findById(commentDto.postId).toNullable()) { "Пост с id ${commentDto.postId} не найден" }
 		val comment: Comment = commentConverter.toEntity(commentDto, post, authService.getCurrentUser())
 		commentRepository.save(comment)
-		val message = mailContentBuilder.build(post.user.username + " прокомментировал ваш пост.")
+		val message = post.user.username + " прокомментировал ваш пост."
 		sendCommentNotification(message, post.user)
 	}
 
@@ -51,7 +50,7 @@ class CommentService(
 
 
 	private fun sendCommentNotification(message: String, user: User) {
-		mailService.sendMail(NotificationEmail(user.username + " прокомментировал ваш пост", user.email, message))
+		mailService.sendMail(NotificationEmail("Вам ответили на Breddit", user.email, message))
 	}
 
 }

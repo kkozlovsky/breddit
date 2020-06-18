@@ -9,7 +9,6 @@ import org.springframework.mail.javamail.MimeMessagePreparator
 import org.springframework.scheduling.annotation.Async
 import org.springframework.stereotype.Service
 import ru.kerporation.breddit.dto.NotificationEmail
-import javax.mail.internet.MimeMessage
 
 private val logger = KotlinLogging.logger {}
 
@@ -31,11 +30,11 @@ class MailService(
 			}
 		}
 		try {
+			logger.info("Текст письма: ${notificationEmail.body}")
 			mailSender.send(messagePreparator)
 			logger.info("Письмо активации отправлено на ${notificationEmail.recipient}")
 		} catch (e: MailException) {
 			logger.error("Ошибка при отправке сообщения на ${notificationEmail.recipient}, установите правильные credentials mailtrap.io")
-			logger.info("Текст письма: ${notificationEmail.body}")
 		}
 	}
 }
