@@ -19,7 +19,9 @@ private val logger = KotlinLogging.logger {}
 
 @Service
 class JwtProvider(
-	@Value("\${jwt.expiration.time}") private val jwtExpirationInMillis: Long
+	@Value("\${jwt.expiration.time}") private val jwtExpirationInMillis: Long,
+	@Value("\${breddit.jks.key.store.password}") private val keyStorePassword: String,
+	@Value("\${breddit.jks.key.entry.password}") private val keyEntryPassword: String
 ) {
 
 	lateinit var keyStore: KeyStore
@@ -29,7 +31,7 @@ class JwtProvider(
 		try {
 			keyStore = KeyStore.getInstance("JKS")
 			val resourceAsStream = javaClass.getResourceAsStream("/breddit.jks")
-			keyStore.load(resourceAsStream, "secret".toCharArray())
+			keyStore.load(resourceAsStream, keyStorePassword.toCharArray())
 		} catch (e: Exception) {
 			logger.error { e }
 			throw RuntimeException("Ошибка ининициализации хранилища")
@@ -57,7 +59,7 @@ class JwtProvider(
 
 	private fun getPrivateKey(): PrivateKey {
 		return try {
-			keyStore.getKey("breddit", "secret".toCharArray()) as PrivateKey
+			keyStore.getKey("breddit", keyEntryPassword.toCharArray()) as PrivateKey
 		} catch (e: Exception) {
 			logger.error { e }
 			throw RuntimeException("Ошибка при получении приватного ключа")
