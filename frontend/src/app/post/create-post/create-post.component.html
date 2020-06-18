@@ -4,7 +4,7 @@
     <div class="create-post-container col-md-9">
       <form class="post-form" [formGroup]="createPostForm" (ngSubmit)="createPost()">
         <div class="form-group">
-          <div class="create-post-heading">Create Post</div>
+          <div class="create-post-heading">Создать пост</div>
           <hr/>
           <input type="text"
                  [formControlName]="'postName'"
@@ -23,7 +23,7 @@
                   [formControlName]="'subredditName'">
             <option value=""
                     selected
-                    disabled>Select Subreddit
+                    disabled>Выбрать раздел
             </option>
             <option *ngFor="let subreddit of subreddits">{{subreddit.name}}</option>
           </select>

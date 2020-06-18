@@ -4,13 +4,12 @@
     <div class="col-md-6">
       <div class="card">
         <div class="card-header" style="text-align: center">
-          <h4>Register</h4>
+          <h4>Регистрация</h4>
         </div>
         <div class="card-body">
           <form (ngSubmit)="signup()" [formGroup]="signupForm">
             <div class="form-group row">
-              <label class="col-md-4 col-form-label text-md-right" for="email_address">E-Mail
-                Address</label>
+              <label class="col-md-4 col-form-label text-md-right" for="email_address">E-Mail</label>
               <div class="col-md-6">
                 <input [formControlName]="'email'"
                        autofocus class="form-control"
@@ -18,23 +17,23 @@
                        name="email-address"
                        required
                        type="text">
-                <span *ngIf="!signupForm.get('email').valid && signupForm.get('email').touched">Please provide a valid email</span>
+                <span *ngIf="!signupForm.get('email').valid && signupForm.get('email').touched">Некорректный email</span>
               </div>
             </div>
 
             <div class="form-group row">
-              <label class="col-md-4 col-form-label text-md-right">User Name</label>
+              <label class="col-md-4 col-form-label text-md-right">Имя пользователя</label>
               <div class="col-md-6">
                 <input [formControlName]="'username'"
                        autofocus class="form-control"
                        required
                        type="text">
-                <span *ngIf="!signupForm.get('username').valid && signupForm.get('username').touched">Please provide a valid username</span>
+                <span *ngIf="!signupForm.get('username').valid && signupForm.get('username').touched">Укажите имя пользователя</span>
               </div>
             </div>
 
             <div class="form-group row">
-              <label class="col-md-4 col-form-label text-md-right" for="password">Password</label>
+              <label class="col-md-4 col-form-label text-md-right" for="password">Пароль</label>
               <div class="col-md-6">
                 <input [formControlName]="'password'"
                        class="form-control"
@@ -42,13 +41,13 @@
                        name="password"
                        required
                        type="password">
-                <span *ngIf="!signupForm.get('password').valid && signupForm.get('password').touched">Please provide a valid Password</span>
+                <span *ngIf="!signupForm.get('password').valid && signupForm.get('password').touched">Укажите пароль</span>
               </div>
             </div>
 
             <span class="col-md-6 offset-md-4">
-                            <button class="sign-up" type="submit">Sign Up</button>
-                            <span style="padding-left: 15px">Existing user? <a routerLink="/login">Log In</a></span>
+                            <button class="sign-up" type="submit">Зарегистрироваться</button>
+                            <span style="padding-left: 15px">Уже зарегистрированы? <a routerLink="/login">Войти</a></span>
             </span>
           </form>
         </div>

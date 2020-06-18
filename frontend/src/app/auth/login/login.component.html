@@ -4,12 +4,12 @@
     <div class="col-md-6">
       <div class="card">
         <div class="card-header" style="text-align: center">
-          <h4>Login</h4>
+          <h4>Войти</h4>
         </div>
         <div class="card-body">
           <form [formGroup]="loginForm" (ngSubmit)="login()">
             <div class="form-group row">
-              <label for="user_name" class="col-md-4 col-form-label text-md-right">Username</label>
+              <label for="user_name" class="col-md-4 col-form-label text-md-right">Пользователь</label>
               <div class="col-md-6">
                 <input type="text"
                        id="user_name"
@@ -18,12 +18,12 @@
                        name="user_name"
                        required
                        autofocus>
-                <span *ngIf="!loginForm.get('username').valid && loginForm.get('username').touched">Please provide a valid username</span>
+                <span *ngIf="!loginForm.get('username').valid && loginForm.get('username').touched">Укажите имя пользователя</span>
               </div>
             </div>
 
             <div class="form-group row">
-              <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
+              <label for="password" class="col-md-4 col-form-label text-md-right">Пароль</label>
               <div class="col-md-6">
                 <input type="password"
                        id="password"
@@ -31,19 +31,19 @@
                        [formControlName]="'password'"
                        name="password"
                        required>
-                <span *ngIf="!loginForm.get('password').valid && loginForm.get('password').touched">Password cannot be empty</span>
+                <span *ngIf="!loginForm.get('password').valid && loginForm.get('password').touched">Пароль не может быть пустым</span>
               </div>
             </div>
 
             <span class="col-md-6 offset-md-4">
                             <button type="submit"
                                     class="login">
-                                Login
+                                Войти
                             </button>
-                            <span style="padding-left: 15px">New User? <a routerLink="/signup">SIGN UP</a></span>
+                            <span style="padding-left: 15px">Новый пользователь? <a routerLink="/signup">Зарегистрироваться</a></span>
                         </span>
             <div class="login-failed" *ngIf='this.isError'>
-              <p class="login-failed-text">Login Failed. Please check your credentials and try again.</p>
+              <p class="login-failed-text">Неверный пользователь или пароль. Возможно надо активировать аккаунт!</p>
             </div>
             <div class="login-failed"
                  [ngStyle]="{'background-color': 'green'}"

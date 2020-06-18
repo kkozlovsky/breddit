@@ -1,0 +1,13 @@
+<div class="container">
+  <h2>{{subreddit.name}}</h2>
+  <h6><em>{{subreddit.description}}</em></h6>
+  <div>
+    Количество постов: <b>{{postLength}}</b>
+  </div>
+  <hr/>
+  <div>
+     Посты:
+  </div>
+  <app-post-title [posts]="posts"></app-post-title>
+  <hr/>
+</div>

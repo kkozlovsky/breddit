@@ -10,23 +10,22 @@
             </path>
           </g>
         </svg>
-        <span class="reddit-text">Spring Reddit Clone</span>
+        <span class="reddit-text">Breddit (Reddit Clone)</span>
       </a>
     </div>
     <div class="flex-grow-1 float-right">
       <div *ngIf="isLoggedIn" ngbDropdown class="float-right">
         <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-          <button (click)="goToUserProfile()" ngbDropdownItem>Profile</button>
-          <button (click)="logout()" ngbDropdownItem>Logout</button>
+          <button (click)="goToUserProfile()" ngbDropdownItem>Профиль</button>
+          <button (click)="logout()" ngbDropdownItem>Выйти</button>
         </div>
         <button class="userdetails" id="dropdownBasic1" ngbDropdownToggle>
-          <img class="account-icon" src="https://www.redditstatic.com/avatars/avatar_default_08_D4E815.png">
-          {{username}}
+          <fa-icon [icon]="faUser"></fa-icon> {{username}}
         </button>
       </div>
       <div *ngIf="!isLoggedIn">
-        <a routerLink="/sign-up" class="float-right sign-up mr-2">Sign up</a>
-        <a routerLink="/login" class="float-right login mr-2">Login</a>
+        <a routerLink="/sign-up" class="float-right sign-up mr-2">Зарегистрироваться</a>
+        <a routerLink="/login" class="float-right login mr-2">Войти</a>
       </div>
     </div>
   </nav>

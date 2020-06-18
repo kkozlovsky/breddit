@@ -40,8 +40,8 @@ export class LoginComponent implements OnInit {
       .subscribe(params => {
         if (params.registered !== undefined &&
           params.registered === 'true') {
-          this.toastr.success('Signup Successful');
-          this.registerSuccessMessage = 'Please Check your inbox for activation email activate your account before you Login!';
+          this.toastr.success('Регистрация прошла успешно!');
+          this.registerSuccessMessage = 'Проверьте письмо активации в mailtrap или найдите ссылку в логах для активации аккаунта!';
         }
       });
   }
@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.loginRequestPayload).subscribe(() => {
       this.isError = false;
       this.router.navigateByUrl('');
-      this.toastr.success('Login Successful');
+      this.toastr.success('Добро пожаловать');
     }, error => {
       this.isError = true;
       throwError(error);

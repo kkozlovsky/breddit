@@ -8,30 +8,29 @@
         </div>
         <div class="col-md-11">
           <span>
-            <span class="subreddit-text"><a class="post-url" href="">{{post.subredditName}}</a></span>
-            <span> . Posted
-              <span> {{post.duration}} </span>
-              by
-              <a class="username" href="">{{post.username}}</a>
-            </span>
+            <span class="subreddit-text"><a class="post-url" href="{{post.url}}">{{post.subredditName}}</a></span>
+            <span> Опубликовано <a class="username" routerLink="/user-profile/{{post.username}}">{{post.username}}</a> <span> {{post.duration}} </span></span>
           </span>
           <hr/>
-          <a routerLink="post.url" class="post-title">{{post.postName}}</a>
+          <a href="{{post.url}}" class="post-title">{{post.postName}}</a>
+
           <div>
             <p class="post-text" [innerHtml]="post.description"></p>
           </div>
+
           <div class="post-comment">
             <form [formGroup]="commentForm" (ngSubmit)="postComment()">
               <div class="form-group">
-                <textarea class="form-control" [formControlName]="'text'" placeholder="Your Thoughts?"></textarea>
+                <textarea class="form-control" [formControlName]="'text'" placeholder="Что думаете?"></textarea>
               </div>
-              <button type="submit" class="login float-right">Comment</button>
+              <button type="submit" class="login float-right">Комментировать</button>
             </form>
           </div>
+
           <div style="margin-top: 60px;" *ngFor="let comment of comments">
             <div class="comment">
               <div class="username">
-                <a routerLink="/user/comment.username">{{comment.username}}</a>
+                <a routerLink="/user-profile/{{comment.username}}">{{comment.username}}</a>
               </div>
               <div>
                 <p>{{comment.duration}}</p>
