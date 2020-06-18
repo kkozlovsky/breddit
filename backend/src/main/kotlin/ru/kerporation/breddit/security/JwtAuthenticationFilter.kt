@@ -1,5 +1,6 @@
 package ru.kerporation.breddit.security
 
+import io.jsonwebtoken.ExpiredJwtException
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
@@ -22,15 +23,22 @@ class JwtAuthenticationFilter(
 								  response: HttpServletResponse,
 								  filterChain: FilterChain) {
 
-		val jwt = getJwtFromRequest(request)
-		if (jwt != null && StringUtils.hasText(jwt) && jwtProvider.validateToken(jwt)) {
-			val username = jwtProvider.getUsernameFromJwt(jwt)
-			val userDetails = userDetailsService.loadUserByUsername(username)
-			val authentication = UsernamePasswordAuthenticationToken(userDetails, null, userDetails.authorities)
-			authentication.details = WebAuthenticationDetailsSource().buildDetails(request)
-			SecurityContextHolder.getContext().authentication = authentication
+		try {
+			val jwt = getJwtFromRequest(request)
+			if (jwt != null && StringUtils.hasText(jwt) && jwtProvider.validateToken(jwt)) {
+				val username = jwtProvider.getUsernameFromJwt(jwt)
+				val userDetails = userDetailsService.loadUserByUsername(username)
+				val authentication = UsernamePasswordAuthenticationToken(userDetails, null, userDetails.authorities)
+				authentication.details = WebAuthenticationDetailsSource().buildDetails(request)
+				SecurityContextHolder.getContext().authentication = authentication
+			}
+			filterChain.doFilter(request, response)
+		} catch (e: ExpiredJwtException) {
+			response.status = HttpServletResponse.SC_FORBIDDEN
+			response.sendError(HttpServletResponse.SC_FORBIDDEN, e.message)
+			return
 		}
-		filterChain.doFilter(request, response)
+
 	}
 
 	private fun getJwtFromRequest(request: HttpServletRequest): String? {
