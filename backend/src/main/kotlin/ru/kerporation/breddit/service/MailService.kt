@@ -34,8 +34,8 @@ class MailService(
 			mailSender.send(messagePreparator)
 			logger.info("Письмо активации отправлено на ${notificationEmail.recipient}")
 		} catch (e: MailException) {
-			logger.error("Ошибка при отправке сообщения", e)
-			throw RuntimeException("Ошибка при отправке сообщения на: ${notificationEmail.recipient}")
+			logger.error("Ошибка при отправке сообщения на ${notificationEmail.recipient}, установите правильные credentials mailtrap.io")
+			logger.info("Текст письма: ${notificationEmail.body}")
 		}
 	}
 }
