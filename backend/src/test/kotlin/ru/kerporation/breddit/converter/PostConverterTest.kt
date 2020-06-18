@@ -51,6 +51,7 @@ class PostConverterTest {
 		assertEquals(postResponse.url, "github.com")
 		assertEquals(postResponse.username, "postUser")
 		assertEquals(postResponse.subredditName, "Test subreddit")
+		assertEquals(postResponse.subredditId, 1L)
 		assertEquals(postResponse.voteCount, 7L)
 		assertEquals(postResponse.commentCount, 0)
 		assertEquals(postResponse.duration, "just now")
