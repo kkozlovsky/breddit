@@ -3,22 +3,22 @@
     <div class="create-subreddit-container">
       <form (ngSubmit)="createSubreddit()" [formGroup]="createSubredditForm" class="post-form">
         <div class="form-group">
-          <div class="create-subreddit-heading">Create Subreddit</div>
+          <div class="create-subreddit-heading">Создать раздел</div>
           <hr/>
           <input [formControlName]="'title'"
                  class="form-control"
-                 placeholder="Title"
+                 placeholder="Название"
                  style="margin-top: 5px"
                  type="text">
           <textarea [formControlName]="'description'"
-                    placeholder="Description"
+                    placeholder="Описание"
                     style="width: 100%; margin-top: 5px"
                     type="text">
           </textarea>
           <div>
             <div class="float-right" style="margin-top: 5px">
-              <button (click)="discard()" class="btnDiscard">Discard</button>
-              <button class="btnCreateSubreddit">Create</button>
+              <button (click)="discard()" class="btnDiscard">Отменить</button>
+              <button class="btnCreateSubreddit">Создать</button>
             </div>
           </div>
         </div>
@@ -26,12 +26,12 @@
     </div>
     <div class="col-md-3">
       <div class="sidebar">
-        <h5 class="guidelines">Posting to Spring Reddit</h5>
+        <h5 class="guidelines">Элементарные правила</h5>
         <hr/>
         <ul>
-          <li>Remember the human</li>
-          <li>Behave like you would in real life</li>
-          <li>Don't spam</li>
+          <li>Уважайте других</li>
+          <li>Ведите себя хорошо</li>
+          <li>Не тупите</li>
         </ul>
       </div>
     </div>

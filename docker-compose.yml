@@ -1,0 +1,54 @@
+version: '3'
+
+services:
+
+  #PostgreSQL
+  breddit-postgres:
+    image: "postgres:9.6-alpine"
+    container_name: breddit-postgres
+    volumes:
+      - breddit-data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=breddit
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    networks:
+      - backendNetwork
+
+  #Backend
+  breddit-backend:
+    build: ./backend
+    container_name: breddit-backend
+    environment:
+      - DB_SERVER=breddit-postgres
+      - POSTGRES_DB=breddit
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - 8080:8080
+    depends_on:
+      - breddit-postgres
+    networks:
+      - backendNetwork
+      - frontendNetwork
+
+  #Fronend
+  breddit-frontend:
+    build: ./frontend
+    container_name: breddit-frontend
+    ports:
+      - 4200:4200
+    depends_on:
+      - breddit-backend
+    networks:
+      - frontendNetwork
+
+#Volumes
+volumes:
+  breddit-data:
+
+networks:
+  backendNetwork:
+  frontendNetwork:
