@@ -4,10 +4,10 @@ services:
 
   #PostgreSQL
   breddit-postgres:
-    image: "postgres:9.6-alpine"
+    image: "postgres"
     container_name: breddit-postgres
-    volumes:
-      - breddit-data:/var/lib/postgresql/data
+#    volumes:
+#      - breddit-data:/var/lib/postgresql/data
     ports:
       - 5432:5432
     environment:
@@ -39,15 +39,15 @@ services:
     build: ./frontend
     container_name: breddit-frontend
     ports:
-      - 4200:4200
+      - 80:80
     depends_on:
       - breddit-backend
     networks:
       - frontendNetwork
 
 #Volumes
-volumes:
-  breddit-data:
+#volumes:
+#  breddit-data:
 
 networks:
   backendNetwork:
