@@ -34,7 +34,7 @@ services:
       - backendNetwork
       - frontendNetwork
 
-  #Fronend
+  #Frontend
   breddit-frontend:
     build: ./frontend
     container_name: breddit-frontend
